@@ -6,18 +6,18 @@ from conan.tools.cmake import CMake, cmake_layout
 
 class TestPackageConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
-    generators = "CMakeToolchain", "VirtualBuildEnv"
+    generators = "CMakeToolchain", "CMakeDeps", "VirtualBuildEnv"
 
     def build_requirements(self):
         self.tool_requires(self.tested_reference_str)
-        self.tool_requires("cmake/3.31.5")
+        self.tool_requires("cmake/[>=3.19]")
 
     def layout(self):
         cmake_layout(self)
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(variables={"CMAKE_TRY_COMPILE_TARGET_TYPE": "STATIC_LIBRARY"})
+        cmake.configure()
         cmake.build()
 
     def test(self):
