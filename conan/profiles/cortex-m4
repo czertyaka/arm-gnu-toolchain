@@ -14,3 +14,6 @@ CXX={{ toolchain }}-g++
 LD={{ toolchain }}-ld
 CFLAGS=-mcpu=cortex-m4 -mthumb
 CXXFLAGS=-mcpu=cortex-m4 -mthumb
+
+[tool_requires]
+arm-gnu-toolchain/14.2
