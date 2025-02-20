@@ -1,8 +1,9 @@
 import os
+import requests
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.scm import Version
-from conan.tools.files import unzip, copy
+from conan.tools.files import get, copy
 
 
 class ArmGNUToolchain(ConanFile):
@@ -11,8 +12,6 @@ class ArmGNUToolchain(ConanFile):
 
     settings = "os", "arch"
     package_type = "application"
-
-    exports_sources = "arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz"
 
     @property
     def archs(self):
@@ -48,11 +47,14 @@ class ArmGNUToolchain(ConanFile):
             )
 
     def build(self):
-        unzip(
-            self,
-            "arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz",
-            strip_root=True,
-        )
+        api_endpoint = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key={}'
+        sharing_link = 'https://disk.yandex.ru/d/rOY2piT7dbrc_A'
+        pk_request = requests.get(api_endpoint.format(sharing_link))
+        direct_link = pk_request.json()['href']
+        filename = "arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz"
+        sha256 = "289c226ecf53e9ac82f26579ef6e54fd4c38230de2dbf72241810e172461cb47"
+        get(self, direct_link, filename=filename, sha256=sha256, strip_root=True)
+
 
     def package(self):
         dirs_to_copy = ["arm-none-eabi", "bin", "include", "lib", "libexec"]
