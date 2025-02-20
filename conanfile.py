@@ -52,7 +52,7 @@ class ArmGNUToolchain(ConanFile):
         pk_request = requests.get(api_endpoint.format(sharing_link))
         direct_link = pk_request.json()['href']
         filename = "arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz"
-        sha256 = "289c226ecf53e9ac82f26579ef6e54fd4c38230de2dbf72241810e172461cb47"
+        sha256 = "62a63b981fe391a9cbad7ef51b17e49aeaa3e7b0d029b36ca1e9c3b2a9b78823"
         get(self, direct_link, filename=filename, sha256=sha256, strip_root=True)
 
 
