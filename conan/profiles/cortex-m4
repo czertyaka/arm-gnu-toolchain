@@ -13,8 +13,11 @@ build_type=Release
 CC={{ toolchain }}-gcc
 CXX={{ toolchain }}-g++
 LD={{ toolchain }}-ld
-CFLAGS=-mcpu=cortex-m4 -mthumb
-CXXFLAGS=-mcpu=cortex-m4 -mthumb
+CFLAGS=-mcpu=cortex-m4 -mthumb --specs=nosys.specs
+CXXFLAGS=-mcpu=cortex-m4 -mthumb --specs=nosys.specs
+
+[conf]
+tools.gnu:host_triplet=arm-none-eabi
 
 [tool_requires]
 arm-gnu-toolchain/14.2
