@@ -20,7 +20,7 @@ $ pip install "conan>=2.0"
 2. Соберите пакет с ARM GNU Toolchain с помощью следующей команды.
     В ходе сборки архив ARM GNU Toolchain будет скачан с Яндекс.Диска и распакован.
     ```console
-    $ conan create . -pr:b=default -pr:h=blackpill --build-require
+    $ conan create . -pr:b=default -pr:h=cortex-m4 --build-require
     ```
 ## Использование
 
